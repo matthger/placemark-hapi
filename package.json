@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "description": "",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "lint": "eslint . --ext .js",
+    "test": "mocha --ui tdd test\\**\\**.js -exit",
+    "testmodels": "mocha --ui tdd test/models/**/*.js",
+    "testapi": "mocha --ui tdd test/api/**/*.js -exit --timeout 10000",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
