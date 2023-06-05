@@ -1,4 +1,5 @@
 import { Category } from "./category.js";
+import {placemarkMongoStore} from "./placemark-mongo-store.js";
 
 export const categoryMongoStore = {
     async getAllCategories() {
@@ -9,6 +10,9 @@ export const categoryMongoStore = {
     async getCategoryById(id) {
         if (id) {
             const category = await Category.findOne({ _id: id }).lean();
+            if (category) {
+                category.placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(category._id);
+            }
             return category;
         }
         return null;
