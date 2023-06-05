@@ -1,18 +1,23 @@
 import { assert } from "chai";
 import { EventEmitter } from "events";
 import { db } from "../../src/models/db.js";
-import {sightseeing, testCategories} from "../fixtures.js";
+import {maggie, sightseeing, testCategories} from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 EventEmitter.setMaxListeners(25);
 
 suite("Category Model tests", () => {
 
+    let user = null;
+
     setup(async () => {
         db.init("mongo");
         await db.categoryStore.deleteAll();
+        user = await db.userStore.addUser(maggie);
+        sightseeing.userid = user._id;
         for (let i = 0; i < testCategories.length; i++) {
             // eslint-disable-next-line no-await-in-loop
+            testCategories[i].userid = user._id;
             await db.categoryStore.addCategory(testCategories[i]);
         }
     });
