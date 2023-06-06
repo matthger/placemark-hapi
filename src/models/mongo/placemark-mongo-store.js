@@ -16,7 +16,7 @@ export const placemarkMongoStore = {
     },
 
     async getPlacemarksByCategoryId(id) {
-        const placemarks = await Placemark.find({ categoryid: id }).lean();
+        const placemarks = await Placemark.find({ categoryid: id }).populate("categoryid").lean();
         return placemarks;
     },
 
@@ -26,7 +26,9 @@ export const placemarkMongoStore = {
         for (let i = 0; i < userCategories.length; i++) {
             let categoryPlacemarks = await this.getPlacemarksByCategoryId(userCategories[i]._id);
             if (categoryPlacemarks.length > 0) {
-                placemarks.push(categoryPlacemarks);
+                for (let j = 0; j < categoryPlacemarks.length; j++) {
+                    placemarks.push(categoryPlacemarks[j]);
+                }
             }
         }
         return placemarks;

@@ -30,7 +30,6 @@ suite("Category API tests", () => {
     test("delete a category", async () => {
         const category = await placemarkService.createCategory(sightseeing);
         let response = await placemarkService.deleteCategory(category._id);
-        console.log(response);
         if (response === "") response = null;
         assert.isNull(response);
         try {
