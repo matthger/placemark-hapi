@@ -52,7 +52,7 @@ export const placemarkMongoStore = {
     },
 
     async editPlacemark (placemark) {
-        await Placemark.updateOne({ _id: placemark._id }, { name: placemark.name, description: placemark.description, lat: placemark.lat, lng: placemark.lng, category: placemark.category });
+        await Placemark.updateOne({ _id: placemark._id }, { name: placemark.name, description: placemark.description, lat: placemark.lat, lng: placemark.lng, category: placemark.category, img: placemark.img });
         return this.getPlacemarkById(placemark._id);
     },
 

@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-image">
+        {{#if img}}
+            <figure class="image is-256x256">
+                <form action="/{{context}}/{{_id}}/deleteimage" method="POST" style="position:absolute;right:0;">
+                    <button class="button is-danger has-tooltip-left" data-tooltip="Remove image"><i class="fas fa-trash"></i></button>
+                </form>
+                <img src={{img}}>
+            </figure>
+        {{/if}}
+    </div>
+    <div class="card-content">
+        <form action="/{{context}}/{{_id}}/uploadimage" method="POST" enctype="multipart/form-data">
+            <div id="file-select" class="file has-name is-fullwidth">
+                <label class="file-label"> <input class="file-input file-input-{{_id}}" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg" required>
+                    <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                          Choose a file…
+                        </span>
+                   </span>
+                    <span class="file-name file-name-{{_id}}"></span>
+                </label>
+                <button type="submit" class="button is-info">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const fileInput{{_id}} = document.querySelector(".file-input-{{_id}}");
+    fileInput{{_id}}.onchange = () => {
+        if (fileInput{{_id}}.files.length > 0) {
+            const fileName{{_id}} = document.querySelector(".file-name-{{_id}}");
+            fileName{{_id}}.textContent = fileInput{{_id}}.files[0].name;
+        }
+    };
+</script>

@@ -11,6 +11,7 @@ const placemarkSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Category",
     },
+    img: String
 });
 
 export const Placemark = Mongoose.model("Placemark", placemarkSchema);
