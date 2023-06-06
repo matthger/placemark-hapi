@@ -2,14 +2,10 @@
 
 <div class="container">
     {{#if accCreated}}
-        <div class="notification is-success">
-            <i class="fas fa-check"></i> Account created successfully!
-        </div>
+        {{> Notification message="Account created successfully!" type="success" icon="check"}}
     {{else}}
         {{# ne accCreated null}}
-            <div class="notification is-danger">
-                <i class="fas fa-exclamation-triangle"></i> Account already exists!
-            </div>
+            {{> Notification message="Account already exists!" type="danger" icon="exclamation-triangle"}}
         {{/ne}}
     {{/if}}
 

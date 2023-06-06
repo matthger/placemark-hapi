@@ -5,7 +5,7 @@ const { Schema } = Mongoose;
 const categorySchema = new Schema({
     name: String,
     description: String,
-    userid: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: "User",
     }

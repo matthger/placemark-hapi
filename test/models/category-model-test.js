@@ -14,10 +14,10 @@ suite("Category Model tests", () => {
         db.init("mongo");
         await db.categoryStore.deleteAll();
         user = await db.userStore.addUser(maggie);
-        sightseeing.userid = user._id;
+        sightseeing.user = user._id;
         for (let i = 0; i < testCategories.length; i++) {
             // eslint-disable-next-line no-await-in-loop
-            testCategories[i].userid = user._id;
+            testCategories[i].user = user._id;
             await db.categoryStore.addCategory(testCategories[i]);
         }
     });

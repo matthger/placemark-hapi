@@ -9,9 +9,7 @@
     </div>
 
     {{# unless placemarks.length}}
-        <div class="notification is-warning">
-            You have no placemarks yet.
-        </div>
+        {{> Notification message="You have no placemarks yet." type="warning" icon="circle-exclamation"}}
     {{/unless}}
 
     {{# each placemarks}}

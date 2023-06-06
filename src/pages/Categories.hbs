@@ -12,9 +12,7 @@
 
             <h1 class="title"><small class="has-tooltip-right" data-tooltip="Count: {{categories.length}}"><i class="fas fa-star mr-2"></i></small>Categories</h1>
             {{# unless categories.length}}
-                <div class="notification is-warning">
-                    You have no categories yet.
-                </div>
+                {{> Notification message="You have no categories yet." type="warning" icon="circle-exclamation"}}
             {{/unless}}
             {{# each categories}}
                 {{> CategoryView}}

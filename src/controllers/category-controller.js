@@ -3,7 +3,7 @@ export const categoryController = {
     index: {
         handler: async function (request, h) {
             let categories = await db.categoryStore.getUserCategories(request.auth.credentials._id);
-            return h.view("Categories", {title: "Placemark - Your categories", categories: categories});
+            return h.view("Categories", {title: "Placemark - My categories", categories: categories});
         },
     },
     delete: {
@@ -15,7 +15,7 @@ export const categoryController = {
     addCategory: {
         handler: async function (request, h) {
             let category = request.payload;
-            category.userid = request.auth.credentials._id;
+            category.user = request.auth.credentials._id;
             await db.categoryStore.addCategory(category);
             return h.redirect("/categories");
         },
