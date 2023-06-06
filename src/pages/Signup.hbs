@@ -1,6 +1,18 @@
 {{> NavBar loggedIn=false }}
 
 <div class="container">
+    {{#if accCreated}}
+        <div class="notification is-success">
+            <i class="fas fa-check"></i> Account created successfully!
+        </div>
+    {{else}}
+        {{# ne accCreated null}}
+            <div class="notification is-danger">
+                <i class="fas fa-exclamation-triangle"></i> Account already exists!
+            </div>
+        {{/ne}}
+    {{/if}}
+
     <div class="box">
         <h1 class="title">Sign up</h1>
         {{> SignupForm }}

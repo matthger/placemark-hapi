@@ -37,7 +37,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Edit: <strong>{{name}}</strong></p>
+            <p class="modal-card-title">Edit category: <strong>{{name}}</strong></p>
             <button class="delete" aria-label="close"></button>
         </header>
         <form action="/categories/edit/{{_id}}" method="POST">
@@ -63,7 +63,7 @@
                 </div>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
+            <button class="button is-success"><i class="fas fa-pen mr-2"></i> Save changes</button>
         </footer>
         </form>
     </div>
@@ -80,8 +80,8 @@
             The category <strong>{{name}}</strong> and all its placemarks will be deleted.
         </section>
         <footer class="modal-card-foot">
-            <form action="/categories/delete/{{_id}}" method="POST" class="mr-2">
-                <button class="button is-danger">Delete category</button>
+            <form action="/categories/delete/{{_id}}" method="POST">
+                <button class="button is-danger"><i class="fas fa-trash mr-2"></i> Delete category</button>
             </form>
         </footer>
     </div>

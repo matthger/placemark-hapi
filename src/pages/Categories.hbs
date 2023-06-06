@@ -9,7 +9,8 @@
             </div>
         </div>
         <div class="column">
-            <h1 class="title"><small><i class="fas fa-star mr-2"></i></small>Categories</h1>
+
+            <h1 class="title"><small class="has-tooltip-right" data-tooltip="Count: {{categories.length}}"><i class="fas fa-star mr-2"></i></small>Categories</h1>
             {{# unless categories.length}}
                 <div class="notification is-warning">
                     You have no categories yet.

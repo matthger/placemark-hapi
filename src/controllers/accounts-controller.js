@@ -10,15 +10,16 @@ export const accountsController = {
     showSignup: {
         auth: false,
         handler: function (request, h) {
-            return h.view("Signup", { title: "Sign up for Placemark" });
+            return h.view("Signup", { title: "Sign up for Placemark", accCreated: null });
         },
     },
     signup: {
         auth: false,
         handler: async function (request, h) {
             const user = request.payload;
-            await db.userStore.addUser(user);
-            return h.redirect("/");
+            let accCreated = false;
+            if (await db.userStore.addUser(user) !== null) accCreated = true;
+            return h.view("Signup", { title: "Sign up for Placemark", accCreated: accCreated });
         },
     },
     showLogin: {

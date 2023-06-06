@@ -7,7 +7,7 @@ const placemarkSchema = new Schema({
     description: String,
     lat: String,
     lng: String,
-    categoryid: {
+    category: {
         type: Schema.Types.ObjectId,
         ref: "Category",
     },

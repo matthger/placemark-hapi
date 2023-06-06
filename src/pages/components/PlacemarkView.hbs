@@ -1,0 +1,148 @@
+<div class="box">
+    <article class="media is-align-items-center">
+        <div class="media-left">
+            <figure class="js-modal-trigger image" data-target="image-{{_id}}">
+                <img src="https://placehold.co/150x150" alt="Image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong class="is-size-4">{{name}}</strong>
+                    <br>
+                    <small><strong>Description: </strong> {{description}}</small>
+                    <br>
+                    <small><strong>Lat: </strong> {{lat}}</small>
+                    <br>
+                    <small><strong>Lng: </strong> {{lng}}</small>
+                    <br>
+                    <small><strong>Category: </strong> {{category.name}}</small>
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a class="js-modal-trigger level-item" aria-label="edit" data-target="edit-{{_id}}">
+                        <span class="icon is-small">
+                          <i class="fas fa-pen" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <a class="js-modal-trigger level-item" aria-label="delete" data-target="delete-{{_id}}">
+                        <span class="icon is-small">
+                          <i class="fas fa-trash" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </article>
+</div>
+
+<div id="edit-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Edit placemark: <strong>{{name}}</strong></p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <form action="/placemarks/edit/{{_id}}" method="POST">
+            <section class="modal-card-body">
+                <div class="field">
+                    <label for="name" class="label">Name</label>
+                    <div class="control has-icons-left">
+                        <input class="input" id="name" type="text" placeholder="Enter a new name for the placemark" name="name" value="{{name}}" required>
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-map-pin"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="description" class="label">Description</label>
+                    <div class="control has-icons-left">
+                        <input class="input" id="description" type="text" placeholder="Enter a new description for the placemark" value="{{description}}" name="description" required>
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-file"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <label for="lat" class="label">Lat</label>
+                            <div class="control has-icons-left">
+                                <input class="input" id="lat" type="text" placeholder="Enter a new lat value" value="{{lat}}" name="lat" required>
+                                <span class="icon is-small is-left">
+                                  <i class="fas fa-up-down"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="lng" class="label">Lng</label>
+                            <div class="control has-icons-left">
+                                <input class="input" id="lng" type="text" placeholder="Enter a new lng value" value="{{lng}}" name="lng" required>
+                                <span class="icon is-small is-left">
+                                  <i class="fas fa-left-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="category-{{_id}}" class="label">Category</label>
+                    <div class="control has-icons-left">
+                        <div class="select">
+                            <select name="category" id="category-{{_id}}">
+                                {{# each categories}}
+                                    <option value="{{_id}}">{{name}}</option>
+                                {{/ each}}
+                            </select>
+                        </div>
+                        <div class="icon is-small is-left">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success"><i class="fas fa-pen mr-2"></i> Save changes</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<div id="delete-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Are you sure?</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            The placemark <strong>{{name}}</strong> will be deleted permanently.
+        </section>
+        <footer class="modal-card-foot">
+            <form action="/placemarks/delete/{{_id}}" method="POST" class="mr-2">
+                <button class="button is-danger"><i class="fas fa-trash mr-2"></i> Delete placemark</button>
+            </form>
+        </footer>
+    </div>
+</div>
+
+<div id="image-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <p class="image is-4by3">
+            <img src="https://placehold.co/1000x1000" alt="">
+        </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#category-{{_id}}').val('{{category._id}}');
+    })
+</script>

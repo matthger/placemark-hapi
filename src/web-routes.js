@@ -1,6 +1,7 @@
 import { accountsController } from "./controllers/accounts-controller.js";
 import { userController } from "./controllers/user-controller.js";
 import {categoryController} from "./controllers/category-controller.js";
+import {placemarksController} from "./controllers/placemarks-controller.js";
 
 export const webRoutes = [
     { method: "GET", path: "/", config: accountsController.index },
@@ -16,6 +17,12 @@ export const webRoutes = [
     { method: "POST", path: "/categories/edit/{id}", config: categoryController.editCategory },
     { method: "POST", path: "/categories/delete/{id}", config: categoryController.delete },
     { method: "POST", path: "/categories", config: categoryController.addCategory },
+
+    { method: "GET", path: "/placemarks", config: placemarksController.index },
+    { method: "POST", path: "/placemarks/edit/{id}", config: placemarksController.editPlacemark },
+    { method: "POST", path: "/placemarks/delete/{id}", config: placemarksController.delete },
+    { method: "POST", path: "/placemarks", config: placemarksController.addPlacemark },
+    { method: "GET", path: "/placemarks/filter/{id}", config: placemarksController.filter },
 
     {
         method: "GET",

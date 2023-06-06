@@ -49,7 +49,7 @@ export const PlacemarkSpec = Joi.object()
         description: Joi.string().required().example("Berlin"),
         lat: Joi.number().required().example(52.5163),
         lng: Joi.number().required().example(13.377),
-        categoryid: IdSpec,
+        category: IdSpec,
     })
     .label("Placemark");
 
