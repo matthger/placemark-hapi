@@ -3,7 +3,8 @@ import {placemarkMongoStore} from "./placemark-mongo-store.js";
 
 export const categoryMongoStore = {
     async getAllCategories() {
-        const categories = await Category.find().lean();
+        let categories = await Category.find().lean();
+        categories = this.sortCategories(categories);
         return categories;
     },
 
@@ -19,10 +20,15 @@ export const categoryMongoStore = {
     },
 
     async getUserCategories(id) {
-        const categories = await Category.find({ user: id }).lean();
+        let categories = await Category.find({ user: id }).lean();
         for (let i = 0; i < categories.length; i++) {
             categories[i].placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(categories[i]._id);
         }
+        categories = this.sortCategories(categories);
+        return categories;
+    },
+
+    sortCategories(categories) {
         categories.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
         return categories;
     },
@@ -34,7 +40,7 @@ export const categoryMongoStore = {
     },
 
     async editCategory(category) {
-        await Category.updateOne({ _id: category._id }, { name: category.name, description: category.description });
+        await Category.updateOne({ _id: category._id }, { name: category.name, description: category.description, img: category.img });
         return this.getCategoryById(category._id);
     },
 

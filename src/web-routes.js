@@ -19,12 +19,16 @@ export const webRoutes = [
     { method: "POST", path: "/categories/edit/{id}", config: categoryController.editCategory },
     { method: "POST", path: "/categories/delete/{id}", config: categoryController.delete },
     { method: "POST", path: "/categories", config: categoryController.addCategory },
+    { method: "POST", path: "/categories/{id}/uploadimage", config: categoryController.uploadImage },
+    { method: "POST", path: "/categories/{id}/deleteimage", config: categoryController.deleteImage },
 
     { method: "GET", path: "/placemarks", config: placemarksController.index },
     { method: "POST", path: "/placemarks/edit/{id}", config: placemarksController.editPlacemark },
     { method: "POST", path: "/placemarks/delete/{id}", config: placemarksController.delete },
     { method: "POST", path: "/placemarks", config: placemarksController.addPlacemark },
     { method: "GET", path: "/placemarks/filter/{id}", config: placemarksController.filter },
+    { method: "POST", path: "/placemarks/{id}/uploadimage", config: placemarksController.uploadImage },
+    { method: "POST", path: "/placemarks/{id}/deleteimage", config: placemarksController.deleteImage },
 
     { method: "GET", path: "/browse", config: browseController.index },
 
