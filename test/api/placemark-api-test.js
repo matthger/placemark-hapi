@@ -16,8 +16,8 @@ suite("Placemark API tests", () => {
         await placemarkService.deleteAllUsers();
         user = await placemarkService.createUser(maggie);
         await placemarkService.authenticate(maggieCredentials);
-        sightseeing.userid = user._id;
-        monument.userid = user._id;
+        sightseeing.user = user._id;
+        monument.user = user._id;
         sights = await placemarkService.createCategory(sightseeing);
     });
 

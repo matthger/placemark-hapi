@@ -3,7 +3,11 @@ import {db} from "../db.js";
 
 export const placemarkMongoStore = {
     async getAllPlacemarks() {
-        const placemarks = await Placemark.find().lean();
+        let placemarks = await Placemark.find().populate("category").lean();
+        for (let i = 0; i < placemarks.length; i++) {
+            placemarks[i].category.user = await db.userStore.getUserById(placemarks[i].category.user);
+        }
+        placemarks = this.sortPlacemarks(placemarks);
         return placemarks;
     },
 
@@ -16,7 +20,8 @@ export const placemarkMongoStore = {
     },
 
     async getPlacemarksByCategoryId(id) {
-        const placemarks = await Placemark.find({ category: id }).populate("category").lean();
+        let placemarks = await Placemark.find({ category: id }).populate("category").lean();
+        placemarks = this.sortPlacemarks(placemarks);
         return placemarks;
     },
 
@@ -31,6 +36,11 @@ export const placemarkMongoStore = {
                 }
             }
         }
+        placemarks = this.sortPlacemarks(placemarks);
+        return placemarks;
+    },
+
+    sortPlacemarks(placemarks) {
         placemarks.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
         return placemarks;
     },

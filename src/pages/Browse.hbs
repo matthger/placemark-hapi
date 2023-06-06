@@ -1,0 +1,11 @@
+{{> NavBar loggedIn=true active="browse" }}
+
+<div class="container">
+    <h1 class="title"><i class="fas fa-globe"></i> Browse placemarks created by other users</h1>
+    {{# unless placemarks }}
+        {{> Notification message="There are no placemarks yet." type="warning" icon="circle-exclamation"}}
+    {{/unless}}
+    {{#each placemarks}}
+        {{> BrowsePlacemarkView myCats=../myCategories}}
+    {{/each}}
+</div>

@@ -19,7 +19,7 @@ export const categoryMongoStore = {
     },
 
     async getUserCategories(id) {
-        const categories = await Category.find({ userid: id }).lean();
+        const categories = await Category.find({ user: id }).lean();
         for (let i = 0; i < categories.length; i++) {
             categories[i].placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(categories[i]._id);
         }

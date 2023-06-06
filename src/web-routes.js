@@ -3,6 +3,7 @@ import { userController } from "./controllers/user-controller.js";
 import {categoryController} from "./controllers/category-controller.js";
 import {placemarksController} from "./controllers/placemarks-controller.js";
 import {aboutController} from "./controllers/about-controller.js";
+import {browseController} from "./controllers/browse-controller.js";
 
 export const webRoutes = [
     { method: "GET", path: "/", config: accountsController.index },
@@ -24,6 +25,8 @@ export const webRoutes = [
     { method: "POST", path: "/placemarks/delete/{id}", config: placemarksController.delete },
     { method: "POST", path: "/placemarks", config: placemarksController.addPlacemark },
     { method: "GET", path: "/placemarks/filter/{id}", config: placemarksController.filter },
+
+    { method: "GET", path: "/browse", config: browseController.index },
 
     { method: "GET", path: "/about", config: aboutController.index },
 

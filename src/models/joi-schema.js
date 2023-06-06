@@ -32,7 +32,7 @@ export const CategorySpec = Joi.object()
     .keys({
         name: Joi.string().example("Sightseeing"),
         description: Joi.string().example("Sightseeing in Germany"),
-        userid: IdSpec,
+        user: IdSpec,
     })
     .label("Category");
 
@@ -49,7 +49,7 @@ export const PlacemarkSpec = Joi.object()
         description: Joi.string().required().example("Berlin"),
         lat: Joi.number().required().example(52.5163),
         lng: Joi.number().required().example(13.377),
-        category: IdSpec,
+        category: IdSpec
     })
     .label("Placemark");
 

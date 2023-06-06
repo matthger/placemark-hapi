@@ -4,7 +4,7 @@ export const placemarksController = {
         handler: async function (request, h) {
             let categories = await db.categoryStore.getUserCategories(request.auth.credentials._id);
             let placemarks = await db.placemarkStore.getPlacemarksByUserId(request.auth.credentials._id);
-            return h.view("Placemarks", {title: "Placemark - Your placemarks", categories: categories, placemarks: placemarks});
+            return h.view("Placemarks", {title: "Placemark - My placemarks", categories: categories, placemarks: placemarks});
         },
     },
     delete: {
@@ -33,7 +33,7 @@ export const placemarksController = {
             let categories = await db.categoryStore.getUserCategories(request.auth.credentials._id);
             let placemarks = await db.placemarkStore.getPlacemarksByCategoryId(request.params.id);
             let activeCategory = await db.categoryStore.getCategoryById(request.params.id);
-            return h.view("Placemarks", {title: "Placemark - Your placemarks", categories: categories, placemarks: placemarks, activeCategory: activeCategory});
+            return h.view("Placemarks", {title: "Placemark - My placemarks", categories: categories, placemarks: placemarks, activeCategory: activeCategory});
         },
     },
 };

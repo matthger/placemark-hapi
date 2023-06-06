@@ -16,7 +16,7 @@ suite("Category API tests", () => {
         await placemarkService.deleteAllUsers();
         user = await placemarkService.createUser(maggie);
         await placemarkService.authenticate(maggieCredentials);
-        sightseeing.userid = user._id;
+        sightseeing.user = user._id;
     });
 
     teardown(async () => {});
@@ -42,7 +42,7 @@ suite("Category API tests", () => {
 
     test("create multiple categories", async () => {
         for (let i = 0; i < testCategories.length; i += 1) {
-            testCategories[i].userid = user._id;
+            testCategories[i].user = user._id;
             // eslint-disable-next-line no-await-in-loop
             await placemarkService.createCategory(testCategories[i]);
         }
