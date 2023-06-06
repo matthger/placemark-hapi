@@ -20,7 +20,11 @@ export const categoryMongoStore = {
 
     async getUserCategories(id) {
         const categories = await Category.find({ userid: id }).lean();
-        return categories === null ? [] : categories;
+        for (let i = 0; i < categories.length; i++) {
+            categories[i].placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(categories[i]._id);
+        }
+        categories.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
+        return categories;
     },
 
     async addCategory(category) {
@@ -29,8 +33,17 @@ export const categoryMongoStore = {
         return newCategory;
     },
 
+    async editCategory(category) {
+        await Category.updateOne({ _id: category._id }, { name: category.name, description: category.description });
+        return this.getCategoryById(category._id);
+    },
+
     async deleteCategoryById(id) {
         try {
+            let placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(id);
+            for (let i = 0; i < placemarks.length; i++) {
+                await placemarkMongoStore.deletePlacemarkById(placemarks[i]._id);
+            }
             await Category.deleteOne({ _id: id });
         } catch (error) {
             console.log("bad id");

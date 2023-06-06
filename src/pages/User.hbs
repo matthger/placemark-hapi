@@ -6,25 +6,13 @@
             <img src="images/placemarklogo2.png" width="200">
         </div>
         <div class="column">
-            <h1 class="title">Welcome {{user.firstName}} {{user.lastName}}!</h1>
+            <h1 class="title has-text-centered-touch">Welcome {{user.firstName}} {{user.lastName}}!</h1>
             <p>
                 You logged in with email: <strong>{{user.email}}</strong>.
             </p>
+            <p>
+                Until now, you have created <strong>{{placemarks}}</strong> placemark{{#ne placemarks 1}}s{{/ne}} in <strong>{{categories}}</strong> categor{{#ne categories 1}}ies{{else}}y{{/ne}}.{{# gt placemarks 5 }} Keep up the good work!{{/gt}}
+            </p>
         </div>
     </div>
-    <h1 class="title has-text-centered">Overview</h1>
-    <nav class="level">
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Categories</p>
-                <p class="title">{{categories}}</p>
-            </div>
-        </div>
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Placemarks</p>
-                <p class="title">{{placemarks}}</p>
-            </div>
-        </div>
-    </nav>
 </div>

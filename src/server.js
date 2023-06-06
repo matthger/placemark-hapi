@@ -61,6 +61,31 @@ async function init() {
         },
     ]);
 
+    Handlebars.registerHelper('eq', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a === b) ? next.fn(this) : next.inverse(this);
+    });
+    Handlebars.registerHelper('gt', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a > b) ? next.fn(this) : next.inverse(this);
+    });
+    Handlebars.registerHelper('ge', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a >= b) ? next.fn(this) : next.inverse(this);
+    });
+    Handlebars.registerHelper('lt', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a < b) ? next.fn(this) : next.inverse(this);
+    });
+    Handlebars.registerHelper('le', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a <= b) ? next.fn(this) : next.inverse(this);
+    });
+    Handlebars.registerHelper('ne', function( a, b ){
+        var next =  arguments[arguments.length-1];
+        return (a !== b) ? next.fn(this) : next.inverse(this);
+    });
+
     server.views({
         engines: {
             hbs: Handlebars,
