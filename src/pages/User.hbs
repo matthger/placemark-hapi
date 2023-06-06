@@ -1,0 +1,30 @@
+{{> NavBar loggedIn=true active="user" }}
+
+<div class="container">
+    <div class="columns">
+        <div class="column is-one-third has-text-centered">
+            <img src="images/placemarklogo2.png" width="200">
+        </div>
+        <div class="column">
+            <h1 class="title">Welcome {{user.firstName}} {{user.lastName}}!</h1>
+            <p>
+                You logged in with email: <strong>{{user.email}}</strong>.
+            </p>
+        </div>
+    </div>
+    <h1 class="title has-text-centered">Overview</h1>
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Categories</p>
+                <p class="title">{{categories}}</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Placemarks</p>
+                <p class="title">{{placemarks}}</p>
+            </div>
+        </div>
+    </nav>
+</div>

@@ -1,4 +1,5 @@
 import { Placemark } from "./placemark.js";
+import {db} from "../db.js";
 
 export const placemarkMongoStore = {
     async getAllPlacemarks() {
@@ -16,6 +17,18 @@ export const placemarkMongoStore = {
 
     async getPlacemarksByCategoryId(id) {
         const placemarks = await Placemark.find({ categoryid: id }).lean();
+        return placemarks;
+    },
+
+    async getPlacemarksByUserId(id) {
+        const userCategories = await db.categoryStore.getUserCategories(id);
+        let placemarks = [];
+        for (let i = 0; i < userCategories.length; i++) {
+            let categoryPlacemarks = await this.getPlacemarksByCategoryId(userCategories[i]._id);
+            if (categoryPlacemarks.length > 0) {
+                placemarks.push(categoryPlacemarks);
+            }
+        }
         return placemarks;
     },
 

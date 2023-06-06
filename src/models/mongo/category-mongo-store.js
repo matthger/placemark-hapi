@@ -18,6 +18,11 @@ export const categoryMongoStore = {
         return null;
     },
 
+    async getUserCategories(id) {
+        const categories = await Category.find({ userid: id }).lean();
+        return categories === null ? [] : categories;
+    },
+
     async addCategory(category) {
         const newCategory = new Category(category);
         await newCategory.save();
