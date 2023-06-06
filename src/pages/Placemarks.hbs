@@ -1,0 +1,20 @@
+{{> NavBar loggedIn=true active="placemarks" }}
+
+<div class="container">
+    <h1 class="title"><small class="has-tooltip-right" data-tooltip="Count: {{placemarks.length}}"><i class="fas fa-map-pin mr-2"></i></small>Placemarks</h1>
+
+    <div class="is-flex block is-justify-content-space-between">
+        {{> FilterPlacemarks}}
+        {{> NewPlacemark}}
+    </div>
+
+    {{# unless placemarks.length}}
+        <div class="notification is-warning">
+            You have no placemarks yet.
+        </div>
+    {{/unless}}
+
+    {{# each placemarks}}
+        {{> PlacemarkView categories=../categories}}
+    {{/each}}
+</div>

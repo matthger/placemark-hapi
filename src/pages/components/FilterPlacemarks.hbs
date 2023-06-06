@@ -1,0 +1,22 @@
+<div class="dropdown">
+    <div class="dropdown-trigger">
+        <button class="button is-justify-content-space-between" style="min-width: 250px;" aria-haspopup="true" aria-controls="categoryDropdown">
+            <span>{{#if activeCategory}}{{ activeCategory.name }}{{else}}All Placemarks{{/if}} </span>
+            <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+        </button>
+    </div>
+    <div class="dropdown-menu" id="categoryDropdown" role="menu">
+        <div class="dropdown-content">
+            <a href="/placemarks" class="dropdown-item">
+                All Placemarks
+            </a>
+            {{# each categories}}
+                <a href="/placemarks/filter/{{_id}}" class="dropdown-item">
+                    {{name}}
+                </a>
+            {{/each}}
+        </div>
+    </div>
+</div>

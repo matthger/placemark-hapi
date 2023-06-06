@@ -16,6 +16,9 @@ export const userMongoStore = {
 
     async addUser(user) {
         const newUser = new User(user);
+        if (await this.getUserByEmail(user.email)) {
+            return null;
+        }
         const userObj = await newUser.save();
         const returnedUser = await this.getUserById(userObj._id);
         return returnedUser;
