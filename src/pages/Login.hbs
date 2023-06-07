@@ -1,6 +1,10 @@
 {{> NavBar loggedIn=false }}
 
 <div class="container">
+    {{#if isError}}
+        {{> Notification message=errorMessage type="danger" icon="exclamation-triangle"}}
+    {{/if}}
+
     <div class="box">
         <h1 class="title">Log in</h1>
         {{> LoginForm }}

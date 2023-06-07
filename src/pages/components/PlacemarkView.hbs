@@ -5,17 +5,37 @@
         </div>
         <div class="media-content">
             <div class="content">
-                <p>
-                    <strong class="is-size-4">{{name}}</strong>
-                    <br>
-                    <small><strong>Description: </strong> {{description}}</small>
-                    <br>
-                    <small><strong>Lat: </strong> {{lat}}</small>
-                    <br>
-                    <small><strong>Lng: </strong> {{lng}}</small>
-                    <br>
-                    <small><strong>Category: </strong> {{category.name}}</small>
-                </p>
+                <strong class="is-size-4">{{name}}</strong>
+                <div class="columns">
+                    <div class="column">
+                        <p>
+                            <small><strong>Description: </strong> {{description}}</small>
+                            <br>
+                            <small><strong>Lat: </strong> {{lat}}</small>
+                            <br>
+                            <small><strong>Lng: </strong> {{lng}}</small>
+                        </p>
+                    </div>
+                    <div class="column is-flex is-justify-content-center" style="gap: 1rem;">
+                        <div class="weather is-flex is-align-items-center is-flex-direction-column">
+                            {{# if weather}}
+                                <img src="{{weather.icon}}" alt="Weather icon" width="80" height="80">
+                                {{temp.temp}} °C
+                                {{else}}
+                                <div class="is-flex is-align-items-center is-justify-content-center" style="height: 80px; width: 80px;">
+                                    <i class="fas fa-bolt" style="font-size:25px;"></i>
+                                </div>
+                                No weather data
+                            {{/if}}
+                        </div>
+                        <div class="category is-flex is-align-items-center is-flex-direction-column">
+                            <a href="/placemarks/filter/{{category._id}}" class="frame is-flex is-align-items-center" style="width: 80px; height: 80px;">
+                                <img src="{{# if category.img}}{{category.img}}{{else}}/images/imageplaceholder.png{{/if}}" width="80" height="80">
+                            </a>
+                            {{category.name}}
+                        </div>
+                    </div>
+                </div>
             </div>
             <nav class="level is-mobile">
                 <div class="level-left">

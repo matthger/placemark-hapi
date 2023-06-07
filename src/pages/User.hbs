@@ -10,9 +10,10 @@
             <p>
                 You logged in with email: <strong>{{user.email}}</strong>.
             </p>
-            <p>
+            <p class="mb-4">
                 Until now, you have created <strong>{{placemarks}}</strong> placemark{{#ne placemarks 1}}s{{/ne}} in <strong>{{categories}}</strong> categor{{#ne categories 1}}ies{{else}}y{{/ne}}.{{# gt placemarks 5 }} Keep up the good work!{{/gt}}
             </p>
+            <a href="/password" class="button is-info"><i class="fas fa-key mr-2"></i> Change password</a>
         </div>
     </div>
 </div>
