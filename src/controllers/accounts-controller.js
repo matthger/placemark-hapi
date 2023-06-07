@@ -25,7 +25,7 @@ export const accountsController = {
     showLogin: {
         auth: false,
         handler: function (request, h) {
-            return h.view("Login", { title: "Login to Placemark" });
+            return h.view("Login", { title: "Login to Placemark", isError: false });
         },
     },
     login: {
@@ -34,7 +34,9 @@ export const accountsController = {
             const { email, password } = request.payload;
             const user = await db.userStore.getUserByEmail(email);
             if (!user || user.password !== password) {
-                return h.redirect("/");
+                let errorMessage = "";
+                errorMessage = (!user) ?  "User not found!" : "Wrong credentials!";
+                return h.view("Login", { title: "Login to Placemark", isError: true, errorMessage: errorMessage });
             }
             request.cookieAuth.set({ id: user._id });
             return h.redirect("/user");

@@ -14,6 +14,8 @@ export const webRoutes = [
     { method: "POST", path: "/authenticate", config: accountsController.login },
 
     { method: "GET", path: "/user", config: userController.index },
+    { method: "GET", path: "/password", config: userController.password },
+    { method: "POST", path: "/password", config: userController.changePassword },
 
     { method: "GET", path: "/categories", config: categoryController.index },
     { method: "POST", path: "/categories/edit/{id}", config: categoryController.editCategory },
