@@ -10,6 +10,9 @@
               </span>
         </p>
     </div>
+    <div class="no-search-results is-hidden m-3">
+        {{> Notification message="No users found." type="warning" icon="circle-exclamation"}}
+    </div>
     {{# each users }}
         {{> PanelUser}}
     {{/each}}
@@ -41,10 +44,12 @@
             });
 
             $('.search-user').on('keyup', function () {
+                let notification = $('.no-search-results');
                 let value = $(this).val().toLowerCase();
                 let result = users.filter(function (user) {
                     return user.text.indexOf(value) === -1;
                 });
+                (result.length === users.length) ? notification.removeClass('is-hidden') : notification.addClass('is-hidden');
                 userElements.removeClass('is-hidden');
                 for (let i = 0; i < result.length; i++) {
                     $(`[data-id='${result[i].id}']`).addClass('is-hidden');

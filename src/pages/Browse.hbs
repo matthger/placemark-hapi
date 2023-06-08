@@ -2,10 +2,18 @@
 
 <div class="container">
     <h1 class="title"><i class="fas fa-globe"></i> Browse placemarks created by other users</h1>
+    <div class="block" style="width:300px;">
+        {{> PlacemarkSearch}}
+    </div>
+
+    <div class="no-search-results is-hidden">
+        {{> Notification message="No placemarks found." type="warning" icon="circle-exclamation"}}
+    </div>
+
     {{# unless placemarks }}
         {{> Notification message="There are no placemarks yet." type="warning" icon="circle-exclamation"}}
     {{/unless}}
     {{#each placemarks}}
-        {{> BrowsePlacemarkView myCats=../myCategories}}
+        {{> PlacemarkView myCats=../myCategories context="browse"}}
     {{/each}}
 </div>
