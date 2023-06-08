@@ -1,23 +1,41 @@
-<div class="box">
+<div class="box placemark-view" data-id="{{_id}}">
     <article class="media is-align-items-center">
         <div class="media-left">
-            <img src="{{# if img}}{{img}}{{else}}/images/imageplaceholder.png{{/if}}" alt="Image" width="150" height="150" class="js-modal-trigger image" data-target="upload-{{_id}}">
+            <img src="{{# if img}}{{img}}{{else}}/images/imageplaceholder.png{{/if}}" alt="Image" width="150" height="150" class="js-modal-trigger image" data-target="{{# eq context "my"}}upload{{else}}image{{/eq}}-{{_id}}">
         </div>
         <div class="media-content">
             <div class="content">
-                <strong class="is-size-4">{{name}}</strong>
+                <strong class="is-size-4 name">{{name}}</strong>
                 <div class="columns">
                     <div class="column">
                         <p>
-                            <small><strong>Description: </strong> {{description}}</small>
+                            <small><strong>Description: </strong> <span class="description">{{description}}</span></small>
                             <br>
                             <small><strong>Lat: </strong> {{lat}}</small>
                             <br>
                             <small><strong>Lng: </strong> {{lng}}</small>
+                            {{#eq context "browse"}}
+                                <br>
+                                <small><strong>User: </strong> {{category.user.firstName}} {{category.user.lastName}}</small>
+                            {{/eq}}
                         </p>
                     </div>
-                    <div class="column is-flex is-justify-content-center" style="gap: 1rem;">
-                        <div class="weather is-flex is-align-items-center is-flex-direction-column">
+                    <div class="column is-flex is-justify-content-center" style="gap: .5rem;">
+                        {{#eq context "my"}}
+                            <div class="category placemark-badge is-flex is-align-items-center is-flex-direction-column">
+                                <a href="/placemarks/filter/{{category._id}}" class="frame is-flex is-align-items-center" style="width: 80px; height: 80px;">
+                                    <img src="{{# if category.img}}{{category.img}}{{else}}/images/imageplaceholder.png{{/if}}" width="80" height="80">
+                                </a>
+                                {{category.name}}
+                            </div>
+                        {{/eq}}
+                        <div class="country placemark-badge is-flex is-align-items-center is-flex-direction-column">
+                            {{# if weather}}
+                                <img src="{{country.flag}}" alt="Country flag" width="80" height="80">
+                                {{country.city}} ({{country.code}})
+                            {{/if}}
+                        </div>
+                        <div class="weather placemark-badge is-flex is-align-items-center is-flex-direction-column">
                             {{# if weather}}
                                 <img src="{{weather.icon}}" alt="Weather icon" width="80" height="80">
                                 {{temp.temp}} °C
@@ -28,27 +46,29 @@
                                 No weather data
                             {{/if}}
                         </div>
-                        <div class="category is-flex is-align-items-center is-flex-direction-column">
-                            <a href="/placemarks/filter/{{category._id}}" class="frame is-flex is-align-items-center" style="width: 80px; height: 80px;">
-                                <img src="{{# if category.img}}{{category.img}}{{else}}/images/imageplaceholder.png{{/if}}" width="80" height="80">
-                            </a>
-                            {{category.name}}
-                        </div>
                     </div>
                 </div>
             </div>
             <nav class="level is-mobile">
                 <div class="level-left">
-                    <a class="js-modal-trigger level-item" aria-label="edit" data-target="edit-{{_id}}">
+                    {{# eq context "my"}}
+                        <a class="js-modal-trigger level-item" aria-label="edit" data-target="edit-{{_id}}">
                         <span class="icon is-small">
                           <i class="fas fa-pen" aria-hidden="true"></i>
                         </span>
-                    </a>
-                    <a class="js-modal-trigger level-item" aria-label="delete" data-target="delete-{{_id}}">
+                        </a>
+                        <a class="js-modal-trigger level-item" aria-label="delete" data-target="delete-{{_id}}">
                         <span class="icon is-small">
                           <i class="fas fa-trash" aria-hidden="true"></i>
                         </span>
-                    </a>
+                        </a>
+                    {{else}}
+                        <a class="js-modal-trigger level-item" aria-label="edit" data-target="add-{{_id}}">
+                            <span class="icon is-small">
+                              <i class="fas fa-plus" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    {{/eq}}
                 </div>
             </nav>
         </div>
@@ -161,9 +181,68 @@
     </div>
 </div>
 
+<div id="add-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">{{# if myCats.length}}Add to my placemarks{{else}}No categories found!{{/if}}</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        {{# if myCats.length}}
+            <form action="/placemarks" method="POST">
+                <section class="modal-card-body">
+                    <input type="hidden" id="name" name="name" value="{{name}}" />
+                    <input type="hidden" id="description" name="description" value="{{description}}" />
+                    <input type="hidden" id="lat" name="lat" value="{{lat}}" />
+                    <input type="hidden" id="lng" name="lng" value="{{lng}}" />
+                    <input type="hidden" id="img" name="img" value="{{img}}" />
+                    <div class="field">
+                        <label for="category" class="label">Select Category</label>
+                        <div class="control has-icons-left">
+                            <div class="select">
+                                <select name="category" id="category" required style="min-width: 250px;">
+                                    {{# each myCats}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/ each}}
+                                </select>
+                            </div>
+                            <div class="icon is-small is-left">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success"><i class="fas fa-floppy-disk mr-2"></i> Save</button>
+                </footer>
+            </form>
+        {{else}}
+            <section class="modal-card-body">
+                <p class="subtitle is-6">Please create a category first.</p>
+            </section>
+        {{/if}}
+    </div>
+</div>
+
+<div id="image-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <p class="image">
+            <img src="{{# if img}}{{img}}{{else}}/images/imageplaceholder.png{{/if}}">
+        </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
 <script>
     $(document).ready(function () {
         $('#category-{{_id}}').val('{{category._id}}');
     })
 </script>
+
+<style>
+    .placemark-badge {
+        width: 125px;
+        text-align: center;
+    }
+</style>

@@ -4,8 +4,15 @@
     <h1 class="title"><small class="has-tooltip-right" data-tooltip="Count: {{placemarks.length}}"><i class="fas fa-map-pin mr-2"></i></small>Placemarks</h1>
 
     <div class="is-flex block is-justify-content-space-between">
-        {{> FilterPlacemarks}}
+        <div class="filter-tools is-flex">
+            {{> PlacemarkSearch}}
+            {{> FilterPlacemarks}}
+        </div>
         {{> NewPlacemark}}
+    </div>
+
+    <div class="no-search-results is-hidden">
+        {{> Notification message="No placemarks found." type="warning" icon="circle-exclamation"}}
     </div>
 
     {{# unless placemarks.length}}
@@ -13,6 +20,6 @@
     {{/unless}}
 
     {{# each placemarks}}
-        {{> PlacemarkView categories=../categories}}
+        {{> PlacemarkView categories=../categories context="my"}}
     {{/each}}
 </div>

@@ -1,0 +1,32 @@
+<div class="control has-icons-left mr-2">
+    <input class="input search-placemark" type="text" placeholder="Search">
+    <span class="icon is-left">
+        <i class="fas fa-search" aria-hidden="true"></i>
+    </span>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let placemarkElements = $('.placemark-view');
+        let placemarks = [];
+        placemarkElements.each(function () {
+            placemarks.push({
+                'id': $(this).data('id'),
+                'text': $(this).find('.name').text().toLowerCase() + " " + $(this).find('.description').text().toLowerCase()
+            });
+        });
+
+        $('.search-placemark').on('keyup', function () {
+            let notification = $('.no-search-results');
+            let value = $(this).val().toLowerCase();
+            let result = placemarks.filter(function (placemark) {
+                return placemark.text.indexOf(value) === -1;
+            });
+            (result.length === placemarks.length) ? notification.removeClass('is-hidden') : notification.addClass('is-hidden');
+            placemarkElements.removeClass('is-hidden');
+            for (let i = 0; i < result.length; i++) {
+                $(`[data-id='${result[i].id}']`).addClass('is-hidden');
+            }
+        });
+    });
+</script>

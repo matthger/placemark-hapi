@@ -20,6 +20,10 @@ export const weatherService = {
             let weatherInfo = await this.getWeather(placemarks[i].lat, placemarks[i].lng);
             if (weatherInfo) {
                 placemarks[i].weather = weatherInfo.weather[0];
+                placemarks[i].country = {};
+                placemarks[i].country.code = weatherInfo.sys.country;
+                placemarks[i].country.city = weatherInfo.name;
+                placemarks[i].country.flag = `https://flagsapi.com/${placemarks[i].country.code}/flat/64.png`;
                 placemarks[i].temp = weatherInfo.main;
                 placemarks[i].temp.temp = Math.round(placemarks[i].temp.temp);
             }
