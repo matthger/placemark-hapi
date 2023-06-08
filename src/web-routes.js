@@ -4,18 +4,28 @@ import {categoryController} from "./controllers/category-controller.js";
 import {placemarksController} from "./controllers/placemarks-controller.js";
 import {aboutController} from "./controllers/about-controller.js";
 import {browseController} from "./controllers/browse-controller.js";
+import {adminController} from "./controllers/admin-controller.js";
 
 export const webRoutes = [
     { method: "GET", path: "/", config: accountsController.index },
     { method: "GET", path: "/signup", config: accountsController.showSignup },
     { method: "GET", path: "/login", config: accountsController.showLogin },
     { method: "GET", path: "/logout", config: accountsController.logout },
-    { method: "POST", path: "/register", config: accountsController.signup },
-    { method: "POST", path: "/authenticate", config: accountsController.login },
+    { method: "POST", path: "/signup", config: accountsController.signup },
+    { method: "POST", path: "/login", config: accountsController.login },
 
     { method: "GET", path: "/user", config: userController.index },
+    { method: "GET", path: "/user/delete/{id}", config: userController.deleteAccount },
     { method: "GET", path: "/password", config: userController.password },
     { method: "POST", path: "/password", config: userController.changePassword },
+
+    { method: "GET", path: "/admin", config: adminController.index },
+    { method: "POST", path: "/admin/login", config: adminController.adminLogin },
+    { method: "GET", path: "/admin/logout", config: adminController.adminLogout },
+    { method: "GET", path: "/admin/dashboard", config: adminController.adminDashboard },
+    { method: "GET", path: "/admin/dashboard/makeAdmin/{id}", config: adminController.makeAdmin },
+    { method: "GET", path: "/admin/dashboard/removeAdmin/{id}", config: adminController.removeAdmin },
+    { method: "GET", path: "/admin/dashboard/deleteUser/{id}", config: adminController.deleteUser },
 
     { method: "GET", path: "/categories", config: categoryController.index },
     { method: "POST", path: "/categories/edit/{id}", config: categoryController.editCategory },

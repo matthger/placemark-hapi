@@ -35,4 +35,12 @@ export const userController = {
             return h.view("Password", {title: "Placemark - Change password", passChanged: passChanged, errorMessage: errorMessage});
         },
     },
+    deleteAccount: {
+        handler: async function (request, h) {
+            await db.userStore.deleteUserById(request.params.id);
+            await db.categoryStore.deleteCategoriesByUserId(request.params.id);
+            await db.placemarkStore.deletePlacemarksByUserId(request.params.id);
+            return h.redirect("/");
+        },
+    },
 };

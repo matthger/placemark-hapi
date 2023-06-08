@@ -14,6 +14,23 @@
                 Until now, you have created <strong>{{placemarks}}</strong> placemark{{#ne placemarks 1}}s{{/ne}} in <strong>{{categories}}</strong> categor{{#ne categories 1}}ies{{else}}y{{/ne}}.{{# gt placemarks 5 }} Keep up the good work!{{/gt}}
             </p>
             <a href="/password" class="button is-info"><i class="fas fa-key mr-2"></i> Change password</a>
+            <a  class="button is-danger js-modal-trigger" data-target="delete-{{user._id}}"><i class="fas fa-trash mr-2"></i> Delete account</a>
         </div>
+    </div>
+</div>
+
+<div id="delete-{{user._id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Are you sure?</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            Your account will be deleted.
+        </section>
+        <footer class="modal-card-foot">
+            <a href="/user/delete/{{user._id}}" class="button is-success"><i class="fas fa-check mr-2"></i> Confirm</a>
+        </footer>
     </div>
 </div>

@@ -56,6 +56,17 @@ export const categoryMongoStore = {
         }
     },
 
+    async deleteCategoriesByUserId(id) {
+        try {
+            let categories = await this.getUserCategories(id);
+            for (let i = 0; i < categories.length; i++) {
+                await this.deleteCategoryById(categories[i]._id);
+            }
+        } catch (error) {
+            console.log("bad id");
+        }
+    },
+
     async deleteAll() {
         await Category.deleteMany({});
     },

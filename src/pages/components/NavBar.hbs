@@ -11,11 +11,13 @@
                 </a>
             {{/if}}
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="burgerMenu">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+            {{# unless admin}}
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="burgerMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            {{/unless}}
         </div>
 
         <div class="navbar-menu burger-menu is-hidden-desktop" id="burgerMenu">
@@ -35,6 +37,9 @@
                 <a class="navbar-item about" href="/about">
                     <i class="fas fa-address-card mr-2"></i> About
                 </a>
+                <a class="navbar-item" href="/logout">
+                    <i class="fas fa-house-user mr-2"></i> Logout
+                </a>
             {{else}}
                 <a class="navbar-item" href="/signup">
                     <i class="fas fa-user-plus mr-2"></i> Sign up
@@ -48,6 +53,11 @@
         <div id="navbar" class="navbar-menu">
             {{#if loggedIn}}
                 <div class="navbar-start">
+                {{#if admin}}
+                    <a class="navbar-item admin" href="/admin/dashboard">
+                        <i class="fas fa-gauge mr-2"></i> Dashboard
+                    </a>
+                {{else}}
                     <a class="navbar-item user" href="/user">
                         <i class="fas fa-user mr-2"></i> Profile
                     </a>
@@ -63,34 +73,37 @@
                     <a class="navbar-item about" href="/about">
                         <i class="fas fa-address-card mr-2"></i> About
                     </a>
+                {{/if}}
                 </div>
             {{/if}}
 
-            <div class="navbar-end">
-                {{#unless loggedIn }}
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-link is-info" href="/signup">
-                                <i class="fas fa-user-plus mr-2"></i>
-                                Sign up
-                            </a>
-                            <a class="button is-light" href="/login">
-                                <i class="fas fa-user mr-2"></i> Login
-                            </a>
+                <div class="navbar-end">
+                    {{#unless admin}}
+                        {{#unless loggedIn}}
+                            <div class="navbar-item">
+                                <div class="buttons">
+                                    <a class="button is-link is-info" href="/signup">
+                                        <i class="fas fa-user-plus mr-2"></i>
+                                        Sign up
+                                    </a>
+                                    <a class="button is-light" href="/login">
+                                        <i class="fas fa-user mr-2"></i> Login
+                                    </a>
+                                </div>
+                            </div>
+                        {{/unless}}
+                    {{/unless}}
+                    {{#if loggedIn}}
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="button is-link is-info" href="/{{#if admin}}admin/{{/if}}logout">
+                                    <i class="fas fa-house-user mr-2"></i> Logout
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {{/unless}}
-                {{#if loggedIn}}
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-link is-info" href="/logout">
-                                <i class="fas fa-house-user mr-2"></i> Logout
-                            </a>
-                        </div>
-                    </div>
-                {{/if}}
+                    {{/if}}
+                </div>
             </div>
-        </div>
     </div>
 </nav>
 

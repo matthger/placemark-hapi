@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <style>
     .container {
@@ -21,6 +23,17 @@
      .js-modal-trigger {
          cursor: pointer;
      }
+    .login-box {
+        max-width: 700px;
+        margin-inline: auto;
+    }
+    .scale-on-hover:hover {
+        transition: all .5s ease-in-out;
+        transform: scale(1.05);
+    }
+    .scale-on-hover {
+        transition: all .5s ease-in-out;
+    }
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -64,10 +77,12 @@
         });
 
         var dropdown = document.querySelector('.dropdown');
-        dropdown.addEventListener('click', function(event) {
-            event.stopPropagation();
-            dropdown.classList.toggle('is-active');
-        });
+        if (dropdown) {
+            dropdown.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdown.classList.toggle('is-active');
+            });
+        }
     });
 </script>
 <body>

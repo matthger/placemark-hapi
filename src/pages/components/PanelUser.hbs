@@ -1,0 +1,11 @@
+<a class="panel-block panel-user {{_id}} is-flex is-justify-content-space-between" href="?editUser={{_id}}#userManager" data-id="{{_id}}">
+    <div class="is-flex is-align-items-center">
+        <span class="panel-icon">
+                          <i class="fas fa-user" aria-hidden="true"></i>
+                        </span>
+        <span class="user-infos">{{lastName}}, {{firstName}} ({{email}})</span>
+    </div>
+    {{#if isAdmin}}
+        <span class="tag is-light is-link">ADMIN</span>
+    {{/if}}
+</a>

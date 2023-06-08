@@ -1,0 +1,54 @@
+<article class="user-panel panel is-link">
+    <p class="panel-heading">
+        <i class="fas fa-list mr-2"></i> User List
+    </p>
+    <div class="panel-block is-sticky has-background-white" style="top: 0px;">
+        <p class="control has-icons-left">
+            <input class="input is-link search-user" type="text" placeholder="Search">
+            <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+        </p>
+    </div>
+    {{# each users }}
+        {{> PanelUser}}
+    {{/each}}
+</article>
+
+<style>
+    .user-panel {
+        height: 500px;
+        overflow-y: scroll;
+    }
+    .panel-user.is-active {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<script>
+        $(document).ready(function () {
+            {{#if editUser}}
+                $('.user-panel .panel-user.{{editUser._id}}').addClass('is-active');
+            {{/if}}
+
+            let userElements = $('.user-panel .panel-user');
+            let users = [];
+            userElements.each(function () {
+                users.push({
+                    'id': $(this).data('id'),
+                    'text': $(this).find('.user-infos').text().toLowerCase()
+                });
+            });
+
+            $('.search-user').on('keyup', function () {
+                let value = $(this).val().toLowerCase();
+                let result = users.filter(function (user) {
+                    return user.text.indexOf(value) === -1;
+                });
+                userElements.removeClass('is-hidden');
+                for (let i = 0; i < result.length; i++) {
+                    $(`[data-id='${result[i].id}']`).addClass('is-hidden');
+                }
+            });
+        });
+</script>

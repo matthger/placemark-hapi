@@ -2,7 +2,13 @@ import { User } from "./user.js";
 
 export const userMongoStore = {
     async getAllUsers() {
-        const users = await User.find().lean();
+        let users = await User.find().lean();
+        users = this.sortUsers(users);
+        return users;
+    },
+
+    sortUsers(users) {
+        users.sort((a,b) => (a.lastName.toLowerCase() > b.lastName.toLowerCase()) ? 1 : ((b.lastName.toLowerCase() > a.lastName.toLowerCase()) ? -1 : 0));
         return users;
     },
 
@@ -25,7 +31,7 @@ export const userMongoStore = {
     },
 
     async editUser(user) {
-        await User.updateOne({ _id: user._id }, { name: user.name, email: user.email, password: user.password });
+        await User.updateOne({ _id: user._id }, { name: user.name, email: user.email, password: user.password, isAdmin: user.isAdmin });
         return this.getUserById(user._id);
     },
 
