@@ -2,8 +2,14 @@ import { db } from "../models/db.js";
 
 export const accountsController = {
     index: {
-        auth: false,
+        auth : {
+            strategy : 'session',
+            mode     : 'optional'
+        },
         handler: function (request, h) {
+            if (request.auth.isAuthenticated) {
+                return h.redirect("/user");
+            }
             return h.view("Main", { title: "Welcome to Placemark" });
         },
     },
@@ -23,8 +29,14 @@ export const accountsController = {
         },
     },
     showLogin: {
-        auth: false,
+        auth : {
+            strategy : 'session',
+            mode     : 'optional'
+        },
         handler: function (request, h) {
+            if (request.auth.isAuthenticated) {
+                return h.redirect("/user");
+            }
             return h.view("Login", { title: "Login to Placemark", isError: false });
         },
     },

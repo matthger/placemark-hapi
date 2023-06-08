@@ -1,0 +1,16 @@
+{{> NavBar admin=true loggedIn=loggedIn active="admin" }}
+
+<div class="container">
+    {{#if dashboard}}
+        {{> AdminDashboard}}
+    {{else}}
+        {{#if isError}}
+            {{> Notification message=errorMessage type="danger" icon="exclamation-triangle"}}
+        {{/if}}
+
+        <div class="box login-box">
+            <h1 class="title">Admin Login</h1>
+            {{> LoginForm admin=true}}
+        </div>
+    {{/if}}
+</div>

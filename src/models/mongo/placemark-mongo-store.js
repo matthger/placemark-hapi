@@ -64,6 +64,17 @@ export const placemarkMongoStore = {
         }
     },
 
+    async deletePlacemarksByUserId(id) {
+        try {
+            let placemarks = await this.getPlacemarksByUserId(id);
+            for (let i = 0; i < placemarks.length; i++) {
+                await this.deletePlacemarkById(placemarks[i]._id);
+            }
+        } catch (error) {
+            console.log("bad id");
+        }
+    },
+
     async deleteAll() {
         await Placemark.deleteMany({});
     },

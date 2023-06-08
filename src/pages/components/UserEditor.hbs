@@ -1,0 +1,45 @@
+<article class="panel is-link">
+    <p class="panel-heading">
+        <i class="fas fa-pen-to-square mr-2"></i> User Editor
+    </p>
+    <p class="user-block">
+        <strong>First name:</strong> {{editUser.firstName}}<br>
+        <strong>Last name:</strong> {{editUser.lastName}}<br>
+        <strong>E-Mail:</strong> {{editUser.email}}<br>
+        <strong>Admin:</strong> {{# if editUser.isAdmin}}yes{{else}}no{{/if}}<br><br>
+        <a class="button is-link js-modal-trigger" data-target="admin-{{_id}}"><i class="fas fa-gear mr-2"></i> {{# if editUser.isAdmin}}Remove{{else}}Make{{/if}} Admin</a>
+        <a class="button is-danger js-modal-trigger" data-target="delete-{{_id}}"><i class="fas fa-trash mr-2"></i> Delete User</a>
+    </p>
+</article>
+
+<div id="admin-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Are you sure?</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            Admin status will be {{#if editUser.isAdmin}}removed{{else}}granted{{/if}} for user <strong>{{editUser.firstName}} {{editUser.lastName}}</strong>.
+        </section>
+        <footer class="modal-card-foot">
+            <a href="/admin/dashboard/{{#if editUser.isAdmin}}remove{{else}}make{{/if}}Admin/{{editUser._id}}" class="button is-success"><i class="fas fa-check mr-2"></i> Confirm</a>
+        </footer>
+    </div>
+</div>
+
+<div id="delete-{{_id}}" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Are you sure?</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            User <strong>{{editUser.firstName}} {{editUser.lastName}}</strong> will be deleted.
+        </section>
+        <footer class="modal-card-foot">
+            <a href="/admin/dashboard/deleteUser/{{editUser._id}}" class="button is-success"><i class="fas fa-check mr-2"></i> Confirm</a>
+        </footer>
+    </div>
+</div>

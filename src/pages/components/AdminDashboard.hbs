@@ -1,0 +1,29 @@
+<h1 class="title"><i class="fas fa-chart-line mr-2"></i> Statistics</h1>
+<div class="columns mb-6">
+    <div class="column">
+        {{> Statistics count=users.length title="User Count" icon="user" id="userCount"}}
+    </div>
+    <div class="column">
+        {{> Statistics count=placemarks title="Placemark Count" icon="map-pin" id="placemarkCount"}}
+    </div>
+    <div class="column">
+        {{> Statistics count=categories title="Category Count" icon="star" id="categoryCount"}}
+    </div>
+</div>
+
+<h1 class="title" id="userManager"><i class="fas fa-users mr-2"></i> User Manager</h1>
+{{> UserManager }}
+
+
+<script>
+    $(document).ready(function () {
+        $('#userCount').text(parseInt($('#userCount').text()) + 1);
+        $('.stats-count').counterUp({
+            delay: 10,
+            time: 600
+        });
+    })
+</script>
+
+
+
