@@ -9,7 +9,7 @@ const categorySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    img: String
+    img: { type: String, default: '' }
 });
 
 export const Category = Mongoose.model("Category", categorySchema);

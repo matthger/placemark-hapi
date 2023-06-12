@@ -8,11 +8,12 @@ EventEmitter.setMaxListeners(25);
 
 suite("Category Model tests", () => {
 
-    let user = null;
+    let user = {};
 
     setup(async () => {
         db.init("mongo");
         await db.categoryStore.deleteAll();
+        await db.userStore.deleteAll();
         user = await db.userStore.addUser(maggie);
         sightseeing.user = user._id;
         for (let i = 0; i < testCategories.length; i++) {
