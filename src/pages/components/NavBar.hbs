@@ -94,6 +94,11 @@
                         {{/unless}}
                     {{/unless}}
                     {{#if loggedIn}}
+                        {{#if admin}}
+                            <div class="navbar-item">
+                                <i class="fas fa-user-gear mr-2"></i> {{user.firstName}} {{user.lastName}}
+                            </div>
+                        {{/if}}
                         <div class="navbar-item">
                             <div class="buttons">
                                 <a class="button is-link is-info" href="/{{#if admin}}admin/{{/if}}logout">

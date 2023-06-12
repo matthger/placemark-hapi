@@ -17,15 +17,17 @@
         });
 
         $('.search-placemark').on('keyup', function () {
-            let notification = $('.no-search-results');
-            let value = $(this).val().toLowerCase();
-            let result = placemarks.filter(function (placemark) {
-                return placemark.text.indexOf(value) === -1;
-            });
-            (result.length === placemarks.length) ? notification.removeClass('is-hidden') : notification.addClass('is-hidden');
-            placemarkElements.removeClass('is-hidden');
-            for (let i = 0; i < result.length; i++) {
-                $(`[data-id='${result[i].id}']`).addClass('is-hidden');
+            if (placemarks.length > 0) {
+                let notification = $('.no-search-results');
+                let value = $(this).val().toLowerCase();
+                let result = placemarks.filter(function (placemark) {
+                    return placemark.text.indexOf(value) === -1;
+                });
+                (result.length === placemarks.length) ? notification.removeClass('is-hidden') : notification.addClass('is-hidden');
+                placemarkElements.removeClass('is-hidden');
+                for (let i = 0; i < result.length; i++) {
+                    $(`[data-id='${result[i].id}']`).addClass('is-hidden');
+                }
             }
         });
     });
