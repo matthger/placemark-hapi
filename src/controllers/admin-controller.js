@@ -41,7 +41,7 @@ export const adminController = {
             if (request.query.editUser) {
                 editUser = await db.userStore.getUserById(request.query.editUser);
             }
-            return h.view("Admin", {title: "Placemark - Admin Dashboard", dashboard: true, loggedIn: true, users: users, placemarks: placemarks, categories: categories, editUser: editUser});
+            return h.view("Admin", {title: "Placemark - Admin Dashboard", dashboard: true, loggedIn: true, users: users, placemarks: placemarks, categories: categories, editUser: editUser, user: request.auth.credentials });
         },
     },
     adminLogout: {

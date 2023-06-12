@@ -64,11 +64,33 @@ export const maggie = {
     lastName: "Simpson",
     email: "maggie@simpson.com",
     password: "secret",
+    isAdmin: false
 };
 
 export const maggieCredentials = {
     email: "maggie@simpson.com",
     password: "secret"
+};
+
+export const helper = {
+    firstName: "Help",
+    lastName: "Account",
+    email: "help@account.com",
+    password: "secret",
+    isAdmin: false
+};
+
+export const helperCredentials = {
+    email: "help@account.com",
+    password: "secret"
+};
+
+export const matthias = {
+    firstName: "Matthias",
+    lastName: "Gerhard",
+    email: "matthias@gerhard.com",
+    password: "secret",
+    isAdmin: false
 };
 
 export const testUsers = [
@@ -77,18 +99,21 @@ export const testUsers = [
         lastName: "Simpson",
         email: "homer@simpson.com",
         password: "secret",
+        isAdmin: false
     },
     {
         firstName: "Marge",
         lastName: "Simpson",
         email: "marge@simpson.com",
         password: "secret",
+        isAdmin: false
     },
     {
         firstName: "Bart",
         lastName: "Simpson",
         email: "bart@simpson.com",
         password: "secret",
+        isAdmin: false
     },
 ];
 

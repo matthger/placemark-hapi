@@ -4,9 +4,6 @@ import {db} from "../db.js";
 export const placemarkMongoStore = {
     async getAllPlacemarks() {
         let placemarks = await Placemark.find().populate("category").lean();
-        for (let i = 0; i < placemarks.length; i++) {
-            placemarks[i].category.user = await db.userStore.getUserById(placemarks[i].category.user);
-        }
         placemarks = this.sortPlacemarks(placemarks);
         return placemarks;
     },
