@@ -7,4 +7,4 @@ PLACEMARK is a web application that allows you to save places you have visited o
 Developed by:
 Matthias Gerhard
 Matr.Nr.: 3312948
-Mail: matthias.gerhard@st.oth-regensburg.de
+#Mail: matthias.gerhard@st.oth-regensburg.de
