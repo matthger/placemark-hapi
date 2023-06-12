@@ -1,7 +1,15 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
-import {brandenburgerTor, maggie, sightseeing, testPlacemarks, monument, maggieCredentials} from "../fixtures.js";
+import {
+    brandenburgerTor,
+    maggie,
+    sightseeing,
+    testPlacemarks,
+    monument,
+    maggieCredentials,
+    helperCredentials, helper
+} from "../fixtures.js";
 
 suite("Placemark API tests", () => {
     let user = null;
@@ -9,8 +17,8 @@ suite("Placemark API tests", () => {
 
     setup(async () => {
         await placemarkService.clearAuth();
-        user = await placemarkService.createUser(maggie);
-        await placemarkService.authenticate(maggieCredentials);
+        user = await placemarkService.createUser(helper);
+        await placemarkService.authenticate(helperCredentials);
         await placemarkService.deleteAllCategories();
         await placemarkService.deleteAllPlacemarks();
         await placemarkService.deleteAllUsers();
@@ -19,12 +27,16 @@ suite("Placemark API tests", () => {
         sightseeing.user = user._id;
         monument.user = user._id;
         sights = await placemarkService.createCategory(sightseeing);
+        brandenburgerTor.category = sights._id;
     });
 
-    teardown(async () => {});
+    teardown(async () => {
+        await placemarkService.deleteAllUsers();
+    });
+
 
     test("create placemark", async () => {
-        const returnedPlacemark = await placemarkService.createPlacemark(sights._id, brandenburgerTor);
+        const returnedPlacemark = await placemarkService.createPlacemark(brandenburgerTor);
         assertSubset(brandenburgerTor, returnedPlacemark);
     });
 
@@ -32,7 +44,8 @@ suite("Placemark API tests", () => {
         let category = await placemarkService.createCategory(monument);
         for (let i = 0; i < testPlacemarks.length; i += 1) {
             // eslint-disable-next-line no-await-in-loop
-            await placemarkService.createPlacemark(category._id, testPlacemarks[i]);
+            testPlacemarks[i].category = category._id;
+            await placemarkService.createPlacemark(testPlacemarks[i]);
         }
         const returnedPlacemarks = await placemarkService.getAllPlacemarks();
         assert.equal(returnedPlacemarks.length, testPlacemarks.length);
@@ -45,8 +58,9 @@ suite("Placemark API tests", () => {
 
     test("delete Placemark", async () => {
         for (let i = 0; i < testPlacemarks.length; i += 1) {
+            testPlacemarks[i].category = sights._id;
             // eslint-disable-next-line no-await-in-loop
-            await placemarkService.createPlacemark(sights._id, testPlacemarks[i]);
+            await placemarkService.createPlacemark(testPlacemarks[i]);
         }
         let returnedPlacemarks = await placemarkService.getAllPlacemarks();
         assert.equal(returnedPlacemarks.length, testPlacemarks.length);
@@ -61,7 +75,8 @@ suite("Placemark API tests", () => {
     test("test denormalised category", async () => {
         for (let i = 0; i < testPlacemarks.length; i += 1) {
             // eslint-disable-next-line no-await-in-loop
-            await placemarkService.createPlacemark(sights._id, testPlacemarks[i]);
+            testPlacemarks[i].category = sights._id;
+            await placemarkService.createPlacemark(testPlacemarks[i]);
         }
         const returnedCategory = await placemarkService.getCategory(sights._id);
         assert.equal(returnedCategory.placemarks.length, testPlacemarks.length);

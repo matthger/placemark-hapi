@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
 
-import { maggie, sightseeing, testCategories, maggieCredentials } from "../fixtures.js";
+import {maggie, sightseeing, testCategories, maggieCredentials, helperCredentials, helper} from "../fixtures.js";
 
 suite("Category API tests", () => {
 
@@ -10,8 +10,8 @@ suite("Category API tests", () => {
 
     setup(async () => {
         await placemarkService.clearAuth();
-        user = await placemarkService.createUser(maggie);
-        await placemarkService.authenticate(maggieCredentials);
+        user = await placemarkService.createUser(helper);
+        await placemarkService.authenticate(helperCredentials);
         await placemarkService.deleteAllCategories();
         await placemarkService.deleteAllUsers();
         user = await placemarkService.createUser(maggie);
@@ -19,7 +19,9 @@ suite("Category API tests", () => {
         sightseeing.user = user._id;
     });
 
-    teardown(async () => {});
+    teardown(async () => {
+        await placemarkService.deleteAllUsers();
+    });
 
     test("create category", async () => {
         const returnedCategory = await placemarkService.createCategory(sightseeing);

@@ -1,15 +1,15 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
-import {maggie, maggieCredentials, testUsers} from "../fixtures.js";
+import {helper, helperCredentials, maggie, maggieCredentials, matthias, testUsers} from "../fixtures.js";
 
 const users = new Array(testUsers.length);
 
 suite("User API tests", () => {
     setup(async () => {
         await placemarkService.clearAuth();
-        await placemarkService.createUser(maggie);
-        await placemarkService.authenticate(maggieCredentials);
+        await placemarkService.createUser(helper);
+        await placemarkService.authenticate(helperCredentials);
         await placemarkService.deleteAllUsers();
         for (let i = 0; i < testUsers.length; i += 1) {
             // eslint-disable-next-line no-await-in-loop
@@ -18,11 +18,14 @@ suite("User API tests", () => {
         await placemarkService.createUser(maggie);
         await placemarkService.authenticate(maggieCredentials);
     });
-    teardown(async () => {});
+
+    teardown(async () => {
+        await placemarkService.deleteAllUsers();
+    });
 
     test("create a user", async () => {
-        const newUser = await placemarkService.createUser(maggie);
-        assertSubset(maggie, newUser);
+        const newUser = await placemarkService.createUser(matthias);
+        assertSubset(matthias, newUser);
         assert.isDefined(newUser._id);
     });
 

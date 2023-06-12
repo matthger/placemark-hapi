@@ -1,5 +1,6 @@
 import { Category } from "./category.js";
 import {placemarkMongoStore} from "./placemark-mongo-store.js";
+import Joi from "joi";
 
 export const categoryMongoStore = {
     async getAllCategories() {
@@ -36,7 +37,9 @@ export const categoryMongoStore = {
     async addCategory(category) {
         const newCategory = new Category(category);
         await newCategory.save();
-        return newCategory;
+        let response = await this.getCategoryById(newCategory._id);
+        delete response.placemarks;
+        return response;
     },
 
     async editCategory(category) {
