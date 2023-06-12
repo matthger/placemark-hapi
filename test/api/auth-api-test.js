@@ -4,13 +4,6 @@ import { decodeToken } from "../../src/api/jwt-utils.js";
 import {maggie, maggieCredentials} from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
-    setup(async () => {
-        await placemarkService.clearAuth();
-        await placemarkService.createUser(maggie);
-        await placemarkService.authenticate(maggieCredentials);
-        await placemarkService.deleteAllUsers();
-    });
-
     test("authenticate", async () => {
         const returnedUser = await placemarkService.createUser(maggie);
         const response = await placemarkService.authenticate(maggieCredentials);
@@ -19,6 +12,7 @@ suite("Authentication API tests", async () => {
     });
 
     test("verify token", async () => {
+        await placemarkService.deleteAllUsers();
         const returnedUser = await placemarkService.createUser(maggie);
         const response = await placemarkService.authenticate(maggieCredentials);
 
