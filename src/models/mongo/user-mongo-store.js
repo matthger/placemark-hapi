@@ -3,7 +3,7 @@ import { User } from "./user.js";
 export const userMongoStore = {
     async getAllUsers() {
         let users = await User.find().lean();
-        users = this.sortUsers(users);
+        if (users) users = this.sortUsers(users);
         return users;
     },
 
@@ -22,7 +22,7 @@ export const userMongoStore = {
 
     async addUser(user) {
         const newUser = new User(user);
-        if (await this.getUserByEmail(user.email)) {
+        if (await this.getUserByEmail(newUser.email)) {
             return null;
         }
         const userObj = await newUser.save();
