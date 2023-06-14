@@ -5,7 +5,8 @@ export const browseController = {
         handler: async function (request, h) {
             let myCategories = await db.categoryStore.getUserCategories(request.auth.credentials._id);
             let placemarks = await db.placemarkStore.getAllPlacemarks();
-            placemarks = placemarks.filter(placemark => placemark.category.user._id.toString() !== request.auth.credentials._id.toString());
+            placemarks = placemarks.filter(placemark => placemark.category.user.toString() !== request.auth.credentials._id.toString());
+            console.log(placemarks);
             placemarks = await weatherService.getWeatherInfos(placemarks);
             for (let placemark of placemarks) {
                 placemark.category.user = await db.userStore.getUserById(placemark.category.user);
